@@ -1,0 +1,27 @@
+#!/bin/bash
+
+patterns=("2 ball" "every third throw under the leg" "juggler's tennis" "reverse cascade" "half shower" "mills mess" "knuckle roll" "columns" "fake columns" "elbow pop start" "add stuffed animal"\
+		   "4-2-3" "rainbow cross" "add rubick's cube" "add ruler (resets to cascade)" "every third under arm" "w/ spin" "3 ball flash" "neck catch" "reset" "reset" "reset")
+
+len=$(echo ${#patterns[*]})
+
+declare j
+
+geni ()
+{
+    i=$(echo $(curl -s "https://www.random.org/integers/?num=1&min=0&max=$len&col=1&base=10&format=plain&rnd=new"))
+}
+
+while true
+do
+	read -s -n 1 input
+	if [ "$input" = '' ] ; then
+	    geni
+	    if [ "$j" = "$i" ] ; then
+		geni
+	    fi 
+	    j="$i"
+	    echo ${patterns[i]}
+	fi
+done
+
