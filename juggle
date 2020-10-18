@@ -1,27 +1,57 @@
 #!/bin/bash
 
-patterns=("2 ball" "every third throw under the leg" "juggler's tennis" "reverse cascade" "half shower" "mills mess" "knuckle roll" "columns" "fake columns" "elbow pop start" "add stuffed animal"\
-		   "4-2-3" "rainbow cross" "add rubick's cube" "add ruler (resets to cascade)" "every third under arm" "w/ spin" "3 ball flash" "neck catch" "reset" "reset" "add quarter" "add ping-pong ball")
+patterns=("2 ball" "every third throw under the leg" "juggler's tennis" "reverse cascade" "half shower" "mills mess" "knuckle roll" "columns" "fake columns" "elbow pop start" "add stuffed animal" "4-2-3" "rainbow cross" "add rubick's cube" "add ruler (resets to cascade)" "every third under arm" "w/ spin" "3 ball flash" "neck catch" "reset" "reset" "add quarter" "add ping pong ball")
 
 len=$(echo ${#patterns[*]})
 
 declare j
 
+if [ "$1" = "-o" -o "$1" = "--offline" ] ; then
+	offline=1
+elif [ "$1" = "" ] ; then
+	offline=0
+else
+	echo "Invalid option."
+	exit
+fi
+
 geni ()
 {
-    i=$(echo $(curl -s "https://www.random.org/integers/?num=1&min=0&max=$len&col=1&base=10&format=plain&rnd=new"))
+	if [ $offline = 1 ] ; then
+		i=$(($RANDOM%$len))
+	else
+    	i=$(echo $(curl -s "https://www.random.org/integers/?num=1&min=0&max=$len&col=1&base=10&format=plain&rnd=new"))
+	fi
 }
+
+#for i in "${patterns[@]}"; do echo "$i"; done
+
+score=-1
 
 while true
 do
+	# do action on spacebar press
 	read -s -n 1 input
 	if [ "$input" = '' ] ; then
+		# increment counter for last time, unless it was a reset
+		if [ "${pattens[i]}" != "reset" ] ; then
+		score=$((score+1))
+		fi
+
+		# get a random number, and if it is the same as the last one, get another
 	    geni
-	    if [ "$j" = "$i" ] ; then
+	    if [ "$j" = "$i" -o "${patterns[i]}" = "" ] ; then
 		geni
 	    fi 
 	    j="$i"
+
+		# print out the corresponding action
 	    echo ${patterns[i]}
 	fi
+	if [ "$input" = 'q' ] ; then
+	echo ""
+	echo "Score: $score"
+	echo ""
+	exit
+	fi
 done
-
