@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 patterns=("2 ball" "every third throw under the leg" "juggler's tennis" "reverse cascade" "half shower" "mills mess" "knuckle roll" "columns" "fake columns" "elbow pop start" "add stuffed animal" "4-2-3" "rainbow cross" "add rubick's cube" "add ruler (resets to cascade)" "every third under arm" "w/ spin" "3 ball flash" "neck catch" "reset" "reset" "add quarter" "add ping pong ball" "magic swap ping-pong ball")
 
@@ -6,25 +6,27 @@ len=$(echo ${#patterns[*]})
 
 declare j
 
-if [ "$1" = "-o" -o "$1" = "--offline" ] ; then
-	offline=1
-elif [ "$1" = "" ] ; then
-	offline=0
-else
-	echo "Invalid option."
-	exit
-fi
+case "$1" in
+	"")
+		offline=false ;;
+	"-o"|"--offline")
+		offline=true ;;
+	"-l"|"--list")
+		printf '%s\n' "${patterns[@]}"
+		exit ;;
+	*)
+		echo "Invalid option."
+		exit ;;
+esac
 
 geni ()
 {
-	if [ $offline = 1 ] ; then
+	if [ $offline = true ] ; then
 		i=$(($RANDOM%$len))
 	else
     	i=$(echo $(curl -s "https://www.random.org/integers/?num=1&min=0&max=$len&col=1&base=10&format=plain&rnd=new"))
 	fi
 }
-
-#for i in "${patterns[@]}"; do echo "$i"; done
 
 score=-1
 
