@@ -1,6 +1,6 @@
 #!/bin/bash
 
-patterns=("2 ball" "every third throw under the leg" "juggler's tennis" "reverse cascade" "half shower" "mills mess" "knuckle roll" "columns" "fake columns" "elbow pop start" "add stuffed animal" "4-2-3" "rainbow cross" "add rubick's cube" "add ruler (resets to cascade)" "every third under arm" "w/ spin" "3 ball flash" "neck catch" "reset" "reset" "add quarter" "add ping pong ball" "magic swap ping-pong ball")
+patterns=("2 ball" "every third throw under the leg" "juggler's tennis" "reverse cascade" "half shower" "mills mess" "knuckle roll" "columns" "fake columns" "elbow pop start" "add stuffed animal" "4-2-3" "rainbow cross" "add rubick's cube" "add ruler (resets to cascade)" "every third under arm" "3 ball flash" "neck catch" "reset" "reset" "add quarter" "add ping pong ball" "magic swap ping-pong ball")
 
 len=$(echo ${#patterns[*]})
 
