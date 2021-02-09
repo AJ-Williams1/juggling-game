@@ -1,6 +1,6 @@
 #!/bin/bash
 
-patterns=("2 ball" "every third throw under the leg" "juggler's tennis" "reverse cascade" "half shower" "mills mess" "knuckle roll" "columns" "fake columns" "elbow pop start" "add stuffed animal" "4-2-3" "rainbow cross" "add rubick's cube" "add ruler (resets to cascade)" "every third under arm" "3 ball flash" "neck catch" "reset" "reset" "add quarter" "add ping pong ball" "magic swap ping-pong ball" "infinity" "reverse infinity" "columns overthrow variation" "one throw under opposite leg" "claw catches")
+patterns=("2 ball" "every third throw under the leg" "juggler's tennis" "reverse cascade" "half shower" "mills mess" "knuckle roll" "columns" "fake columns" "elbow pop start" "add stuffed animal" "4-2-3" "rainbow cross" "add rubick's cube" "add ruler (resets to cascade)" "every third under arm" "3 ball flash" "neck catch" "reset" "reset" "add quarter" "add ping pong ball" "magic swap ping-pong ball" "infinity" "reverse infinity" "columns overthrow variation" "one throw under opposite leg" "claw catches" "rubinstien's revenge" "4 ball" "georgion shuffle" "georgian scuffle" "chops" "behind the back multiplex start" "peace sign stall" "punch drop")
 
 len=$(echo ${#patterns[*]})
 
@@ -24,7 +24,7 @@ geni ()
 	if [ $offline = true ] ; then
 		i=$(($RANDOM%$len))
 	else
-    	i=$(echo $(curl -s "https://www.random.org/integers/?num=1&min=0&max=$len&col=1&base=10&format=plain&rnd=new"))
+	i=$(echo $(curl -s "https://www.random.org/integers/?num=1&min=0&max=$len&col=1&base=10&format=plain&rnd=new"))
 	fi
 }
 
@@ -37,17 +37,17 @@ do
 	if [ "$input" = '' ] ; then
 		# increment counter for last time, unless it was a reset
 		if [ "${pattens[i]}" != "reset" ] ; then
-		score=$((score+1))
+			score=$((score+1))
 		fi
 
 		# get a random number, and if it is the same as the last one, get another
-	    geni
-	    if [ "$j" = "$i" -o "${patterns[i]}" = "" ] ; then
-		geni
-	    fi 
-	    j="$i"
+		    geni
+		    if [ "$j" = "$i" -o "${patterns[i]}" = "" ] ; then
+			geni
+		    fi 
+		    j="$i"
 
-		# print out the corresponding action
+	# print out the corresponding action
 	    echo ${patterns[i]}
 	fi
 	if [ "$input" = 'q' ] ; then
